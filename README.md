@@ -7,7 +7,7 @@ A local-first expense tracking app. Run it on your machine—no cloud deployment
 - **Node.js** (v18 or newer; needed for frontend and backend)
 - **npm** (comes with Node)
 
-## Quick start (recommended)
+## Quick start
 
 1. **Clone and install**
    ```bash
@@ -16,20 +16,31 @@ A local-first expense tracking app. Run it on your machine—no cloud deployment
    cd server && npm install && cd ..
    ```
 
-2. **Open the helper page**  
-   Double-click **`start-helper.html`** in Finder (or open it in your browser).
+2. **Set your personal numbers** (income and savings targets used for Spending Power)
+   ```bash
+   cp src/your_numbers.example.js src/your_numbers.js
+   ```
+   Then edit `src/your_numbers.js`:
+   - `INCOME_THAT_HITS_ACCOUNT` — monthly income that hits your account
+   - `FIXED_MUST_SAVINGS` — amount you must save each month
 
-3. **Use the helper page**
-   - Click **Start servers** to run the backend (port 3001) and frontend (port 5173).
-   - macOS may open Terminal briefly to run the companion script in this folder.
-   - Wait a few seconds, then click **Open app →** (or go to http://localhost:5173).
-   - When you’re done, click **Stop servers** on the helper page.
+   This file is gitignored so your numbers stay local.
 
-You can also double-click **`Start Expense Tracker.command`** or **`Stop Expense Tracker.command`** directly, or run `npm start` / `npm run stop` from a terminal.
+3. **Start the app**
+   ```bash
+   npm start
+   ```
+
+   Open **http://localhost:5173** in your browser.
+
+4. **Stop when done**
+   ```bash
+   npm stop
+   ```
 
 ## Manual start (two terminals)
 
-If you prefer not to use the helper page:
+If you prefer separate terminals:
 
 **Terminal 1 – backend**
 ```bash
@@ -53,14 +64,27 @@ Then open **http://localhost:5173** in your browser.
 ## Project layout
 
 - `src/` – React frontend (Vite + TypeScript)
+- `src/your_numbers.js` – your income/savings values (copy from `your_numbers.example.js`)
 - `server/` – Express API and `server/data/` for local data
-- `launcher.mjs` – Starts and stops the backend and frontend processes
-- `start-helper.html` – Helper page UI (open directly in your browser)
-- `Start Expense Tracker.command` / `Stop Expense Tracker.command` – macOS shortcuts used by the helper page
+- `server/sync/` – pluggable transaction sync providers (Origin, Plaid stub, etc.)
+- `scripts/` – Origin browser sync script (Python + Selenium)
+- `launcher.mjs` – starts and stops the backend and frontend (`npm start` / `npm stop`)
 
 ## Data
 
-Transaction data is stored under `server/data/`. The file `transactions.json` is gitignored so your own data is not committed. For a fresh clone, the server will create an empty data file when it first runs.
+Transaction data is stored under `server/data/`. The file `transactions.json` and uploaded `documents/` are gitignored so your own data is not committed. For a fresh clone, the server will create an empty data file when it first runs.
+
+## Syncing transactions
+
+Use **Sync from Origin** in the app to import transactions from Origin Financial. The active sync provider is set via the `SYNC_PROVIDER` env var (defaults to `origin`).
+
+To set up the Origin sync script:
+```bash
+cd scripts
+python3 -m venv venv
+source venv/bin/activate
+pip install selenium selenium-wire requests
+```
 
 ## License
 
