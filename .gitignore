@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+scripts/venv/
+
+# User data
+server/data/transactions.json
+server/data/documents/
+
+# Personal config
+src/your_numbers.js
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Logs
+*.log
+server.log
+
+# Runtime / launcher state
+.launcher/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Vite
+.vite/
+
+# Test / coverage
+coverage/

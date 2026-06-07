@@ -1,0 +1,2 @@
+export const INCOME_THAT_HITS_ACCOUNT = 5000
+export const FIXED_MUST_SAVINGS = 1500
