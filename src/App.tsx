@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import type { Transaction, CategoryTotal, HighlightColor, TransactionDocument } from './types';
 import * as api from './api';
 import { INCOME_THAT_HITS_ACCOUNT, FIXED_MUST_SAVINGS } from './your_numbers.js';
+import { AccountBadge } from './AccountBadge';
 import './App.css';
 
 export type Theme = 'dark' | 'light';
@@ -355,6 +356,7 @@ function ReviewTile({ transaction, onApprove, onReject, onUpdate, onOpenDocument
     <div className="review-tile" onDoubleClick={() => setIsEditing(true)}>
       <div className="tile-header">
         <span className="tile-date">{formatDate(transaction.date)}</span>
+        <AccountBadge accountId={transaction.account_id} compact />
         {transaction.user_category && (
           <span className="tile-category">{transaction.user_category}</span>
         )}
@@ -467,6 +469,9 @@ function InlineEditRow({ transaction, onSave, onCancel, onDelete, onOpenDocument
           className="cell-input"
           placeholder="Category..."
         />
+      </td>
+      <td className="col-account">
+        <AccountBadge accountId={transaction.account_id} />
       </td>
       <td className="col-money">
         <input
@@ -1115,6 +1120,7 @@ function App() {
                   <th className="col-vendor">Merchant</th>
                   <th className="col-title">Name</th>
                   <th className="col-category">Category</th>
+                  <th className="col-account">Account</th>
                   <th className="col-money">Amount</th>
                   <th className="col-notes">Notes</th>
                   <th className="col-docs">Docs</th>
@@ -1124,7 +1130,7 @@ function App() {
               <tbody>
                 {gridTransactions.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="empty-state">
+                    <td colSpan={9} className="empty-state">
                       {approvedTransactions.length === 0
                         ? 'No approved transactions for this month.'
                         : `No transactions in "${selectedCategory}".`}
@@ -1154,6 +1160,9 @@ function App() {
                         <td className="col-title">{t.title}</td>
                         <td className="col-category">
                           {t.user_category ? <span className="category-badge">{t.user_category}</span> : <span className="category-empty">—</span>}
+                        </td>
+                        <td className="col-account">
+                          <AccountBadge accountId={t.account_id} />
                         </td>
                         <td className="col-money num">{formatAmount(t.amount)}</td>
                         <td className="col-notes">{t.notes || '—'}</td>

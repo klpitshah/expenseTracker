@@ -292,6 +292,48 @@
   min-width: 140px;
 }
 
+.transactions-table .col-account {
+  width: 150px;
+  min-width: 150px;
+}
+
+.account-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.account-badge-compact {
+  margin-left: auto;
+}
+
+.account-badge-icon {
+  font-family: 'Material Symbols Outlined';
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--accent-cyan);
+}
+
+.account-badge-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-badge-unknown {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.review-tile .tile-header .account-badge-icon {
+  font-size: 18px;
+}
+
 /* Clickable rows */
 .row-clickable {
   cursor: pointer;
@@ -671,7 +713,7 @@
 
 .transactions-table {
   width: 100%;
-  min-width: 796px;
+  min-width: 892px;
   border-collapse: collapse;
   font-size: 0.875rem;
   table-layout: fixed;
